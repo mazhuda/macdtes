@@ -1,0 +1,22 @@
+{
+  "name": "macdtes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": ">=4.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "azure-storage": "^2.10.3",
+    "express": "^4.17.1",
+    "multer": "^1.4.2",
+    "request": "^2.88.0",
+    "streamifier": "^0.1.1"
+  }
+}

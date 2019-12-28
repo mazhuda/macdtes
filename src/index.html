@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Analisa Gambar</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    .ng-cloak { display: none !important; }
+    a img {
+    	cursor: pointer;
+    }
+    .image-modal img {
+        width: 100%;
+    }
+</style>
+</head>
+<body class="ng-cloak">
+
+<div class="container body-content" ng-controller="mainCtrl as ctrl">
+
+    <h2>Analisa Gambar dengan Azure Computer Vision</h2>
+    <br>
+    <!-- Panel upload -->
+    <form ng-if="!ctrl.analysis.inProgress">
+            Unggah gambar yang akan di <strong>Analisa</strong>.
+            <input type="file" class="btn btn-primary" id="imageFile" name="imageFile" on-file-selected="ctrl.imageFileSelected(file)">
+    </form>
+    <p ng-if="ctrl.analysis.inProgress">
+        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+        Analisa Gambar ...
+    </p>
+
+    <!-- Pesan Error -->
+    <div class="alert alert-danger alert-dismissible" role="alert" ng-if="ctrl.analysis.error">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    {{ctrl.analysis.error.message}}
+    </div>
+
+    <br><br>
+    <!-- Thumbnail -->
+    <div class="row">
+    <div class="col-sm-12">
+        <a ng-click="ctrl.showImageDetails(img)" ng-repeat="img in ctrl.images | filter:ctrl.imageFilter">
+            <img ng-src="{{img.url}}" width="192" ng-attr-title={{img.metadata.caption}} style="padding-right: 16px; padding-bottom: 16px">
+        </a>
+    </div>
+    </div>
+
+    <!-- Popup Gambar -->
+    <div class="modal fade image-modal" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">{{ctrl.current.metadata.caption}}</h4>
+        </div>
+        <div class="modal-body">
+            <img ng-src="{{ctrl.current.fullUrl}}">
+        </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular.min.js"></script>
+<script src="index.js"></script>
+
+</body>
+</html>
